@@ -25,7 +25,7 @@ services:
   php82-service:
     build:
       context: .
-      dockerfile: ${PWD}/.docker/dockerfiles/php/Dockerfile
+      dockerfile: /.docker/dockerfiles/php/Dockerfile
     #   docker build --pull --rm -f "/root/php-arm/Dockerfile" -t phpfpm-arm-vatholm-ru:latest
     restart: always
     #image: phpfpm-arm-vatholm-ru:latest
@@ -33,7 +33,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - ${PWD}/app/arm-student-app:/var/www/project
+      - app_data:/var/www/project
       - ${PWD}/.docker/certs:/var/www/ssl-home/project
       - ${PWD}/.docker/supervisor:/etc/supervisor
       - ${PWD}/.docker/logs/supervisor:/var/log/supervisor/
@@ -48,7 +48,7 @@ services:
       - "8080:80"
       - "1443:443"
     volumes:
-      - .${PWD}/app/arm-student-app:/var/www/project
+      - app_data:/var/www/project
       - ${PWD}/.docker/logs/nginx:/var/log/nginx/
       - ${PWD}/.docker/certs:/var/www/ssl-home/project
       #- ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
@@ -92,6 +92,7 @@ volumes:
   ###> symfony/mercure-bundle ###
   mercure_data:
   mercure_config:
+  app_data:
   ###< symfony/mercure-bundle ###
   ###> doctrine/doctrine-bundle ###
 
