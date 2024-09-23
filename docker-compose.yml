@@ -25,7 +25,7 @@ services:
   php82-service:
     build:
       context: .
-      dockerfile: ${PWD}/.docker/dockerfilse/php/Dockerfile
+      dockerfile: ${PWD}/.docker/dockerfiles/php/Dockerfile
     #   docker build --pull --rm -f "/root/php-arm/Dockerfile" -t phpfpm-arm-vatholm-ru:latest
     restart: always
     #image: phpfpm-arm-vatholm-ru:latest
