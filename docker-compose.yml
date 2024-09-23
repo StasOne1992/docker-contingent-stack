@@ -27,7 +27,6 @@ services:
       context: .
       dockerfile: ./.docker/dockerfiles/php/Dockerfile
     restart: always
-    #image: phpfpm-arm-vatholm-ru:latest
     container_name: php82-container
     ports:
       - "9000:9000"
@@ -50,8 +49,6 @@ services:
       - app_data:/var/www/project
       - ./.docker/logs/nginx:/var/log/nginx/
       - ./.docker/certs:/var/www/ssl-home/project
-      #- ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
-      #- ./.docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
       - type: bind
         source: ./.docker/config/nginx/default.conf
         target: /etc/nginx/conf.d/default.conf
@@ -66,10 +63,10 @@ services:
   ###> symfony/mercure-bundle ###
   mercure:
     image: dunglas/mercure
-    command: /usr/bin/caddy run --config /etc/caddy/Caddyfile.dev
+    command: /usr/bin/caddy run --config /etc/caddy/dev.Caddyfile
     restart: unless-stopped
     environment:
-      SERVER_NAME: ':3000'
+      SERVER_NAME: 'nginx-service:3000'
       MERCURE_PUBLISHER_JWT_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOlsiKiJdfX0.7Hlt-ke43l49emcnOvsmMa2VUCKhJoZEj8j1zTP4PfM'
       MERCURE_SUBSCRIBER_JWT_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjdXJlIjp7InB1Ymxpc2giOlsiKiJdfX0.7Hlt-ke43l49emcnOvsmMa2VUCKhJoZEj8j1zTP4PfM'
       CERT_FILE: '/var/www/ssl-home/project/ssl_cert.crt'
