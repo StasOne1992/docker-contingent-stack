@@ -49,8 +49,15 @@ services:
       - app_data:/var/www/project
       - ./.docker/logs/nginx:/var/log/nginx/
       - ./.docker/certs:/var/www/ssl-home/project
+
       - type: bind
+        ###> Nginx Config
+        # Если необходимо использовать SSL сертифкаты необхоимо:
+        # 1. Заменить в source default.conf на default.ssl.conf
+        # 2. Загрузить закрытый ключ (.docker/certs/ssl_key.key) и сертификат (.docker/certs/ssl_cert.crt)
+        # 3. Выполнить команду `docker compose up --build`
         source: ./.docker/config/nginx/default.conf
+        ###< /Nginx Config
         target: /etc/nginx/conf.d/default.conf
     depends_on:
       - php82-service
