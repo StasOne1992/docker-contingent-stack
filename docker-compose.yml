@@ -16,7 +16,7 @@ services:
         protocol: tcp
         mode: host
     volumes:
-      - ${PWD}/.docker/postgresql/data:/var/lib/postgresql/data
+      - ./.docker/postgresql/data:/var/lib/postgresql/data
     labels:
       com.symfony.server.service-prefix: 'DATABASE_URL'
     networks:
@@ -34,9 +34,9 @@ services:
       - "9000:9000"
     volumes:
       - app_data:/var/www/project
-      - ${PWD}/.docker/certs:/var/www/ssl-home/project
-      - ${PWD}/.docker/supervisor:/etc/supervisor
-      - ${PWD}/.docker/logs/supervisor:/var/log/supervisor/
+      - ./.docker/certs:/var/www/ssl-home/project
+      - ./.docker/supervisor:/etc/supervisor
+      - ./.docker/logs/supervisor:/var/log/supervisor/
     networks:
       - nginx-php-PSQL
 
@@ -49,8 +49,8 @@ services:
       - "1443:443"
     volumes:
       - app_data:/var/www/project
-      - ${PWD}/.docker/logs/nginx:/var/log/nginx/
-      - ${PWD}/.docker/certs:/var/www/ssl-home/project
+      - ./.docker/logs/nginx:/var/log/nginx/
+      - ./.docker/certs:/var/www/ssl-home/project
       #- ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
       #- ./.docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
       - type: bind
@@ -81,7 +81,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ${PWD}/.docker/certs:/var/www/ssl-home/project
+      - ./.docker/certs:/var/www/ssl-home/project
       - mercure_data:/data
       - mercure_config:/config
     networks:
