@@ -26,7 +26,6 @@ services:
     build:
       context: .
       dockerfile: /.docker/dockerfiles/php/Dockerfile
-    #   docker build --pull --rm -f "/root/php-arm/Dockerfile" -t phpfpm-arm-vatholm-ru:latest
     restart: always
     #image: phpfpm-arm-vatholm-ru:latest
     container_name: php82-container
@@ -34,9 +33,9 @@ services:
       - "9000:9000"
     volumes:
       - app_data:/var/www/project
-      - ./.docker/certs:/var/www/ssl-home/project
-      - ./.docker/supervisor:/etc/supervisor
-      - ./.docker/logs/supervisor:/var/log/supervisor/
+      - .docker/certs:/var/www/ssl-home/project
+      - .docker/supervisor:/etc/supervisor
+      - .docker/logs/supervisor:/var/log/supervisor/
     networks:
       - nginx-php-PSQL
 
