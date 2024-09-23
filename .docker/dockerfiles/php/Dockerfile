@@ -13,8 +13,8 @@ RUN pecl install apcu \
 
 
 
-RUN git clone  https://github.com/StasOne1992/contingent-app.git /var/www/html/web-app
-WORKDIR /var/www/html/web-app
+RUN git clone  https://github.com/StasOne1992/contingent-app.git /var/www/project
+WORKDIR /var/www/project
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
