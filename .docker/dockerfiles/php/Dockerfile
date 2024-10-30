@@ -22,3 +22,8 @@ RUN apt install symfony-cli
 RUN composer install
 ## start SuperVisor service
 RUN /bin/sh -c 'systemctl enable supervisor.service'
+
+RUN php bin/console make:migration
+RUN php bin/console doctrine:migrations:migrate
+
+
