@@ -11,6 +11,7 @@ RUN pecl install apcu \
     && docker-php-ext-configure zip \
     && docker-php-source delete
 
+RUN git config --global http.postBuffer 524288000
 
 RUN git config  --global http.version HTTP/1.1
 
