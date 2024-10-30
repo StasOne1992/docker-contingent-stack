@@ -15,8 +15,10 @@ RUN git config --global http.postBuffer 524288000
 
 RUN git config  --global http.version HTTP/1.1
 
-RUN git clone -b dev https://github.com/StasOne1992/contingent-app.git /var/www/project
+RUN git clone -b dev https://github.com/StasOne1992/contingent-app.git /var/www/project --depth 1
 WORKDIR /var/www/project
+
+RUN git fetch --unshallow
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
