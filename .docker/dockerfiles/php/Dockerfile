@@ -14,7 +14,7 @@ RUN pecl install apcu \
 
 RUN git config  --global http.version HTTP/1.1
 
-RUN git clone -b refs/heads/dev https://github.com/StasOne1992/contingent-app.git /var/www/project
+RUN git clone -b dev https://github.com/StasOne1992/contingent-app.git /var/www/project
 WORKDIR /var/www/project
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
