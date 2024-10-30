@@ -1,5 +1,5 @@
 #version: '3.8'
-name: arm-vatholm-prod
+name: arm-vatholm-dev
 services:
   ### Docker-compose PostgreSQL service ###
   database:
@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-stasone}
     ports:
       - target: 5432
-        published: 15432
+        published: 25432
         protocol: tcp
         mode: host
     volumes:
@@ -43,8 +43,8 @@ services:
     restart: always
     container_name: nginx-container
     ports:
-      - "80:80"
-      - "443:443"
+      - "1080:80"
+      - "10443:443"
     volumes:
       - app_data:/var/www/project
       - ./.docker/logs/nginx:/var/log/nginx/
