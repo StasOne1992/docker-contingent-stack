@@ -12,7 +12,7 @@ RUN pecl install apcu \
     && docker-php-source delete
 
 
-git config --global http.version HTTP/1.1
+RUN git config --global http.version HTTP/1.1
 
 RUN git clone -b dev https://github.com/StasOne1992/contingent-app.git /var/www/project
 WORKDIR /var/www/project
