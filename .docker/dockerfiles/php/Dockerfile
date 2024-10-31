@@ -12,7 +12,7 @@ RUN pecl install apcu \
     && docker-php-source delete
 
 
-RUN git clone -b dev https://github.com/StasOne1992/contingent-app.git /var/www/project
+RUN git clone -b DEV https://github.com/StasOne1992/contingent-app.git /var/www/project
 WORKDIR /var/www/project
 
 
