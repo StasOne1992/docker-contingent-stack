@@ -32,8 +32,6 @@ services:
       dockerfile: ./.docker/dockerfiles/php/Dockerfile
     restart: always
     container_name:  ${STACKNAME:-volokit}-arm-php82-container-dev
-    ports:
-      - "9000:9000"
     volumes:
       - ${STACKNAME:-volokit}-app_data:/var/www/project
       - ./.docker/certs:/var/www/ssl-home/project
