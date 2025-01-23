@@ -1,5 +1,5 @@
 #version: '3.8'
-name: ${stackname:-volokit}-arm-dev
+name: ${STACKNAME:-volokit}-arm-dev
 
 
 
@@ -7,7 +7,7 @@ services:
   ### Docker-compose PostgreSQL service ###
   database:
     image: postgres:${POSTGRES_VERSION:-14.8}-alpine
-    container_name:  ${stackname:-volokit}-arm-postgres-container-dev
+    container_name:  ${STACKNAME:-volokit}-arm-postgres-container-dev
     restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-pgs_arm_student}
@@ -16,7 +16,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
     ports:
       - target: 5432
-        published: 25432
+        published: ${POSTGRES_DB_OPEN_PORT:-25432}
         protocol: tcp
         mode: host
     volumes:
@@ -31,11 +31,11 @@ services:
       context: .
       dockerfile: ./.docker/dockerfiles/php/Dockerfile
     restart: always
-    container_name:  ${stackname:-volokit}-arm-php82-container-dev
+    container_name:  ${STACKNAME:-volokit}-arm-php82-container-dev
     ports:
       - "9000:9000"
     volumes:
-      - ${stackname:-volokit}-app_data:/var/www/project
+      - ${STACKNAME:-volokit}-app_data:/var/www/project
       - ./.docker/certs:/var/www/ssl-home/project
       - ./.docker/supervisor:/etc/supervisor
       - ./.docker/logs/supervisor:/var/log/supervisor/
@@ -45,13 +45,13 @@ services:
   nginx-service:
     image: nginx:stable-alpine
     restart: always
-    container_name: nginx-container
+    container_name: ${STACKNAME:-volokit}-arm-nginx-container-dev
     ports:
       - "1080:80"
       - "10022:22"
       - "10443:443"
     volumes:
-      - ${stackname:-volokit}-app_data:/var/www/project
+      - ${STACKNAME:-volokit}-app_data:/var/www/project
       - ./.docker/logs/nginx:/var/log/nginx/
       - ./.docker/certs:/var/www/ssl-home/project
       - type: bind
@@ -89,17 +89,17 @@ services:
       - "3000:3000"
     volumes:
       - ./.docker/certs:/var/www/ssl-home/project
-      -  ${stackname:-volokit}-mercure_data:/data
-      -  ${stackname:-volokit}-mercure_config:/config
+      -  ${STACKNAME:-volokit}-mercure_data:/data
+      -  ${STACKNAME:-volokit}-mercure_config:/config
     networks:
       - nginx-php-PSQL
 ###< symfony/mercure-bundle ###
 
 volumes:
   ###> symfony/mercure-bundle ###
-  ${stackname:-volokit}-mercure_data:
-  ${stackname:-volokit}-mercure_config:
-  ${stackname:-volokit}-app_data:
+  ${STACKNAME:-volokit}-mercure_data:
+  ${STACKNAME:-volokit}-mercure_config:
+  ${STACKNAME:-volokit}-app_data:
   ###< symfony/mercure-bundle ###
   ###> doctrine/doctrine-bundle ###
 
