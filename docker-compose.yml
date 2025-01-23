@@ -1,15 +1,19 @@
 #version: '3.8'
-name: arm-vatholm-dev
+name: ${stackname:-volokit}-arm-dev
+
+
+
 services:
   ### Docker-compose PostgreSQL service ###
   database:
     image: postgres:${POSTGRES_VERSION:-14.8}-alpine
+    container_name:  ${stackname:-volokit}-arm-postgres-container-dev
     restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-pgs_arm_student}
       # You should definitely change the password in production
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bGGLgYqQJLDckv5H}
-      POSTGRES_USER: ${POSTGRES_USER:-stasone}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
     ports:
       - target: 5432
         published: 25432
@@ -27,11 +31,11 @@ services:
       context: .
       dockerfile: ./.docker/dockerfiles/php/Dockerfile
     restart: always
-    container_name: php82-container
+    container_name:  ${stackname:-volokit}-arm-php82-container-dev
     ports:
       - "9000:9000"
     volumes:
-      - app_data:/var/www/project
+      - ${stackname:-volokit}-app_data:/var/www/project
       - ./.docker/certs:/var/www/ssl-home/project
       - ./.docker/supervisor:/etc/supervisor
       - ./.docker/logs/supervisor:/var/log/supervisor/
@@ -44,12 +48,12 @@ services:
     container_name: nginx-container
     ports:
       - "1080:80"
+      - "10022:22"
       - "10443:443"
     volumes:
-      - app_data:/var/www/project
+      - ${stackname:-volokit}-app_data:/var/www/project
       - ./.docker/logs/nginx:/var/log/nginx/
       - ./.docker/certs:/var/www/ssl-home/project
-
       - type: bind
         ###> Nginx Config
         # Если необходимо использовать SSL сертифкаты необхоимо:
@@ -85,17 +89,17 @@ services:
       - "3000:3000"
     volumes:
       - ./.docker/certs:/var/www/ssl-home/project
-      - mercure_data:/data
-      - mercure_config:/config
+      -  ${stackname:-volokit}-mercure_data:/data
+      -  ${stackname:-volokit}-mercure_config:/config
     networks:
       - nginx-php-PSQL
 ###< symfony/mercure-bundle ###
 
 volumes:
   ###> symfony/mercure-bundle ###
-  mercure_data:
-  mercure_config:
-  app_data:
+  ${stackname:-volokit}-mercure_data:
+  ${stackname:-volokit}-mercure_config:
+  ${stackname:-volokit}-app_data:
   ###< symfony/mercure-bundle ###
   ###> doctrine/doctrine-bundle ###
 
