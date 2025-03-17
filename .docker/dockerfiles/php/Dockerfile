@@ -1,6 +1,6 @@
-FROM php:8.2.21-fpm
 ENV PHP_MEMORY_LIMIT=512M
-
+FROM php:8.2.21-fpm
+RUN echo $PHP_MEMORY_LIMIT
 
 RUN apt-get update
 RUN apt-get install --reinstall ca-certificates
