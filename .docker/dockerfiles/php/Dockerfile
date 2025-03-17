@@ -1,5 +1,5 @@
 FROM php:8.3.19-fpm
-ENV PHP_MEMORY_LIMIT=512M
+RUN echo memory_limit = 512 M >> /opt/docker/etc/php/php.ini
 RUN echo $PHP_MEMORY_LIMIT
 
 RUN apt-get update
