@@ -1,6 +1,7 @@
 FROM php:8.3.19-fpm
-RUN echo memory_limit = 512 M >> /opt/docker/etc/php/php.ini
-RUN echo $PHP_MEMORY_LIMIT
+RUN cd /usr/local/etc/php/conf.d/ && \
+  echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini \
+
 
 RUN apt-get update
 RUN apt-get install --reinstall ca-certificates
