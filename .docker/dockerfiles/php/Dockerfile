@@ -1,4 +1,4 @@
-FROM 8.3.19-fpm-alpine3.20
+FROM php:8.3.19-fpm-alpine3.20
 ENV PHP_MEMORY_LIMIT=512M
 RUN echo $PHP_MEMORY_LIMIT
 
