@@ -11,6 +11,7 @@ RUN pecl install apcu \
     && docker-php-ext-configure zip \
     && docker-php-source delete
 
+ENV PHP_MEMORY_LIMIT=-1
 
 RUN git clone -b 'dev2.0' https://github.com/StasOne1992/contingent-app.git /var/www/project
 WORKDIR /var/www/project
