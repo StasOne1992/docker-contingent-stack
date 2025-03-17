@@ -1,11 +1,11 @@
 FROM php:8.3.19-fpm
 RUN cd /usr/local/etc/php/conf.d/ && \
-  echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini \
+  echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
 
 
-RUN apt update
-RUN apt install --reinstall ca-certificates
-RUN apt install -y --no-install-recommends supervisor systemctl  libssl-dev zlib1g-dev  \
+RUN apt-get update
+RUN apt-get install --reinstall ca-certificates
+RUN apt-get install -y --no-install-recommends supervisor systemctl  libssl-dev zlib1g-dev  \
     curl git unzip libxml2-dev libpq-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev
 RUN pecl install apcu \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
