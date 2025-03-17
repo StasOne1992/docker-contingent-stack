@@ -1,7 +1,4 @@
 #version: '3.8'
-name: ${STACKNAME:-volokit}-arm-dev
-
-
 
 services:
   ### Docker-compose PostgreSQL service ###
