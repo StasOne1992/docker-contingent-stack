@@ -1,4 +1,7 @@
 FROM php:8.2.21-fpm
+ENV PHP_MEMORY_LIMIT=512M
+
+
 RUN apt-get update
 RUN apt-get install --reinstall ca-certificates
 RUN apt-get install -y --no-install-recommends apt-utils supervisor systemctl  libssl-dev zlib1g-dev  \
@@ -11,7 +14,7 @@ RUN pecl install apcu \
     && docker-php-ext-configure zip \
     && docker-php-source delete
 
-ENV PHP_MEMORY_LIMIT=-1
+
 
 RUN git clone -b 'dev2.0' https://github.com/StasOne1992/contingent-app.git /var/www/project
 WORKDIR /var/www/project
