@@ -32,6 +32,8 @@ services:
       - ./.docker/certs:/var/www/ssl-home/project
       - ./.docker/supervisor:/etc/supervisor
       - ./.docker/logs/supervisor:/var/log/supervisor/
+    depends_on:
+      - database
     networks:
       - stack-network
 
