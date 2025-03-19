@@ -1,4 +1,4 @@
-#version: '3.8'
+version: '3.8'
 
 services:
   ### Docker-compose PostgreSQL service ###
@@ -12,7 +12,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
     ports:
       - target: 5432
-        published: ${POSTGRES_DB_OPEN_PORT:-25432}
+        published: ${POSTGRES_DB_OPEN_PORT:25432}
         protocol: tcp
         mode: host
     volumes:
@@ -33,7 +33,8 @@ services:
       - ./.docker/supervisor:/etc/supervisor
       - ./.docker/logs/supervisor:/var/log/supervisor/
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     networks:
       - stack-network
 
