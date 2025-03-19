@@ -20,7 +20,7 @@ services:
     labels:
       com.symfony.server.service-prefix: 'DATABASE_URL'
     networks:
-      - nginx-php-PSQL
+      - stack-network
 
   php:
     build:
@@ -33,7 +33,7 @@ services:
       - ./.docker/supervisor:/etc/supervisor
       - ./.docker/logs/supervisor:/var/log/supervisor/
     networks:
-      - nginx-php-PSQL
+      - stack-network
 
   nginx-service:
     image: nginx:stable-alpine
@@ -56,9 +56,9 @@ services:
         ###< /Nginx Config
         target: /etc/nginx/conf.d/default.conf
     depends_on:
-      - php82-service
+      - php
     networks:
-      - nginx-php-PSQL
+      - stack-network
 
 
 
@@ -84,7 +84,7 @@ services:
       -  mercure_data:/data
       -  mercure_config:/config
     networks:
-      - nginx-php-PSQL
+      - stack-network
 ###< symfony/mercure-bundle ###
 
 volumes:
@@ -102,4 +102,4 @@ volumes:
 
 
 networks:
-  nginx-php-PSQL:
+  stack-network:
