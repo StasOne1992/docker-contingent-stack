@@ -85,6 +85,8 @@ services:
       - ./.docker/certs:/var/www/ssl-home/project
       -  mercure_data:/data
       -  mercure_config:/config
+    depends_on:
+      - php
     networks:
       - stack-network
 ###< symfony/mercure-bundle ###
