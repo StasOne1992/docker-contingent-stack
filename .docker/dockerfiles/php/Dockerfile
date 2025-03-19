@@ -25,10 +25,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
 RUN apt install symfony-cli
 RUN composer install
-RUN symfony console doctrine:schema:create
-RUN symfony console doctrine:fixtures:load
 ## start SuperVisor service
 RUN /bin/sh -c 'systemctl enable supervisor.service'
 
-
+RUN symfony console doctrine:schema:create
+RUN symfony console doctrine:fixtures:load
 
