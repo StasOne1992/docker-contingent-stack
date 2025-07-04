@@ -8,11 +8,11 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-pgs_arm_student}
       # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bGGLgYqQJLDckv5H}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
     ports:
       - target: 5432
-        published: ${POSTGRES_DB_OPEN_PORT:25432}
+        published: ${PORT:-5432}
         protocol: tcp
         mode: host
     volumes:
@@ -42,9 +42,10 @@ services:
     image: nginx:stable-alpine
     restart: always
     ports:
-      - "1080:80"
-      - "10022:22"
-      - "10443:443"
+      - target: 80
+        published: ${NGINX_PORT:-1080}
+        protocol: tcp
+        mode: host
     volumes:
       - app_data:/var/www/project
       - ./.docker/logs/nginx:/var/log/nginx/
@@ -81,7 +82,10 @@ services:
       MERCURE_EXTRA_DIRECTIVES: |
         auto_https off
     ports:
-      - "3000:3000"
+      - target: 3000
+        published: ${NGINX_PORT:-3000}
+        protocol: tcp
+        mode: host
     volumes:
       - ./.docker/certs:/var/www/ssl-home/project
       -  mercure_data:/data

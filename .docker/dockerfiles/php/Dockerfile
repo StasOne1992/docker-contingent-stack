@@ -5,8 +5,15 @@ RUN cd /usr/local/etc/php/conf.d/ && \
 
 RUN apt-get update
 RUN apt-get install --reinstall ca-certificates
-RUN apt-get install -y --no-install-recommends apt-utils supervisor systemctl  libssl-dev zlib1g-dev  \
-    curl git unzip libxml2-dev libpq-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev
+RUN apt-get install -y --no-install-recommends  \
+    apt-utils  \
+    supervisor  \
+    systemctl  \
+    libssl-dev  \
+    zlib1g-dev  \
+    curl  \
+    git  \
+    unzip libxml2-dev libpq-dev libzip-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev
 RUN pecl install apcu \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install -j$(nproc) zip opcache intl pdo_pgsql pgsql gd \
@@ -28,6 +35,7 @@ RUN composer install
 ## start SuperVisor service
 RUN /bin/sh -c 'systemctl enable supervisor.service'
 WORKDIR /var/www/project
+RUN symfony console lexik:jwt:generate-keypair
 RUN symfony console doctrine:schema:create
 RUN symfony console doctrine:fixtures:load
 
