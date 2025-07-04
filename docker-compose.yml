@@ -3,6 +3,7 @@ version: '3.8'
 services:
   ### Docker-compose PostgreSQL service ###
   database:
+    env_file: .env
     image: postgres:${POSTGRES_VERSION:-14.8}-alpine
     restart: always
     environment:
@@ -23,6 +24,7 @@ services:
       - stack-network
 
   php:
+    env_file: .env
     build:
       context: .
       dockerfile: ./.docker/dockerfiles/php/Dockerfile
@@ -39,6 +41,7 @@ services:
       - stack-network
 
   nginx-service:
+    env_file: .env
     image: nginx:stable-alpine
     restart: always
     ports:
@@ -69,6 +72,7 @@ services:
 
   ###> symfony/mercure-bundle ###
   mercure:
+    env_file: .env
     image: dunglas/mercure
     command: /usr/bin/caddy run --config /etc/caddy/dev.Caddyfile
     restart: unless-stopped
