@@ -34,8 +34,4 @@ RUN apt install symfony-cli
 RUN composer install
 ## start SuperVisor service
 RUN /bin/sh -c 'systemctl enable supervisor.service'
-WORKDIR /var/www/project
-RUN symfony console lexik:jwt:generate-keypair
-RUN symfony console doctrine:schema:create
-RUN symfony console doctrine:fixtures:load
 
