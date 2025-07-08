@@ -28,7 +28,7 @@ RUN git clone -b 'dev2.0' https://github.com/StasOne1992/contingent-app.git /var
 WORKDIR /var/www/project
 
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php --install-dir=/usr/local/bin --filename=composer
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash
 RUN apt install symfony-cli
 RUN composer install

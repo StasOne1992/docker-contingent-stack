@@ -22,6 +22,11 @@ services:
       com.symfony.server.service-prefix: 'DATABASE_URL'
     networks:
       - stack-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   php:
     env_file: .env
